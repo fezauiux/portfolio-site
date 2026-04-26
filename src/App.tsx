@@ -629,11 +629,47 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const transformRef = useRef<any>(null);
+  const currentScaleRef = useRef(1);
+  const galleryRef = useRef<HTMLDivElement>(null);
 
-  // 3. 切換圖片或專案時重設縮放
   useEffect(() => {
-    transformRef.current?.resetTransform(0); // 0 = 立即重設，不動畫
+    transformRef.current?.resetTransform(0);
+    currentScaleRef.current = 1;
   }, [activeImageIdx, selectedProject?.id]);
+
+  useEffect(() => {
+    if (!selectedProject) return;
+    const el = galleryRef.current;
+    if (!el) return;
+
+    let startX = 0, startY = 0, startTouches = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      startTouches = e.touches.length;
+      if (startTouches === 1) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      const gallery = selectedProject.gallery;
+      if (startTouches !== 1 || currentScaleRef.current > 1 || !gallery || gallery.length <= 1) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+        if (dx < 0) setActiveImageIdx(prev => prev === gallery.length - 1 ? 0 : prev + 1);
+        else setActiveImageIdx(prev => prev === 0 ? gallery.length - 1 : prev - 1);
+      }
+    };
+
+    el.addEventListener('touchstart', onTouchStart, { passive: true, capture: true });
+    el.addEventListener('touchend', onTouchEnd, { passive: true, capture: true });
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart, { capture: true });
+      el.removeEventListener('touchend', onTouchEnd, { capture: true });
+    };
+  }, [selectedProject]);
 
   const t = {
     hero: {
@@ -979,7 +1015,8 @@ export default function App() {
               
               <div className="flex flex-col lg:flex-row h-full overflow-hidden">
                 {/* Left Side: Fixed Image Gallery with Pinch Zoom */}
-                <div 
+                <div
+                  ref={galleryRef}
                   className="bg-[#E6E2DA] w-full lg:w-[45%] h-[40vh] lg:h-full shrink-0 relative overflow-hidden group/gallery"
                 >
                   <div className="w-full h-full">
@@ -991,6 +1028,7 @@ export default function App() {
                       wheel={{ step: 0.15 }}
                       panning={{ velocityDisabled: true }}
                       doubleClick={{ disabled: true }}
+                      onTransformed={(_ref, state) => { currentScaleRef.current = state.scale; }}
                     >
                       <TransformComponent
                         wrapperStyle={{ width: '100%', height: '100%' }}
@@ -1016,17 +1054,9 @@ export default function App() {
 
                   <div className="absolute top-4 left-4 z-10 flex gap-2 pointer-events-none">
                      <span className="px-3 py-1 bg-black/40 backdrop-blur-md rounded-full text-[0.65rem] font-bold text-white uppercase tracking-widest flex items-center gap-2">
-                       <ZoomIn size={10} /> {lang === 'zh' ? '滾輪縮放 / 拖移' : 'Scroll to Zoom / Drag'}
+                       <ZoomIn size={10} /> {lang === 'zh' ? '捏合縮放 · 滑動換圖' : 'Pinch Zoom · Swipe'}
                      </span>
                   </div>
-
-                  {selectedProject.gallery && selectedProject.gallery.length > 1 && (
-                    <div className="absolute top-4 right-4 z-10 pointer-events-none">
-                      <span className="px-3 py-1 bg-black/40 backdrop-blur-md rounded-full text-[0.65rem] font-bold text-white">
-                        {activeImageIdx + 1} / {selectedProject.gallery.length}
-                      </span>
-                    </div>
-                  )}
 
                   {/* Gallery Navigation Arrows */}
                   {selectedProject.gallery && selectedProject.gallery.length > 1 && (
@@ -1036,7 +1066,7 @@ export default function App() {
                           e.stopPropagation();
                           setActiveImageIdx(prev => (prev === 0 ? selectedProject.gallery!.length - 1 : prev - 1))
                         }}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover/gallery:opacity-100"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all lg:opacity-0 lg:group-hover/gallery:opacity-100"
                       >
                         <ChevronRight className="rotate-180" size={20} />
                       </button>
@@ -1045,7 +1075,7 @@ export default function App() {
                           e.stopPropagation();
                           setActiveImageIdx(prev => (prev === selectedProject.gallery!.length - 1 ? 0 : prev + 1))
                         }}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover/gallery:opacity-100"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all lg:opacity-0 lg:group-hover/gallery:opacity-100"
                       >
                         <ChevronRight size={20} />
                       </button>
