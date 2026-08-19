@@ -63,7 +63,7 @@ const PROJECTS: Project[] = [
       en: 'Optimized IA for "logical clarity" and "retrieval efficiency".'
     },
     result: {
-      zh: '實現 3.7 倍轉換重構，Organic 流量 ↑3%。',
+      zh: '實現轉換率提升至 3.7 倍，Organic 流量 ↑3%。',
       en: 'Achieved 3.7x conversion; Organic traffic increased by 3%.'
     },
     categories: ['E-commerce', 'IA Optimization', 'Conversion Growth'],
@@ -131,7 +131,7 @@ const PROJECTS: Project[] = [
   },
   {
     id: 1,
-    title: { zh: 'TAG（AI 導覽助理)', en: 'TAG AI Assistant' },
+    title: { zh: 'TAG（AI 導覽助理）', en: 'TAG AI Assistant' },
     subtitle: {
       zh: '從實驗性 Demo 到商用 SaaS 的產品化重生',
       en: 'From Experimental Demo to Commercial SaaS: A Productization Rebirth'
@@ -208,7 +208,7 @@ const PROJECTS: Project[] = [
       ],
       impacts: {
         zh: [
-          '**確立商用門檻與交付標竿**：透過邏輯優化將基礎定位成功率推申至預期 ≥ 95%，成功從技術 Demo 轉型為具備商業戰鬥力的產品原型。'
+          '**確立商用門檻與交付標竿**：透過邏輯優化將基礎定位成功率推升至預期 ≥ 95%，成功從技術 Demo 轉型為具備商業戰鬥力的產品原型。'
         ],
         en: [
           '**Commercial Benchmarking**: Pushed localization success rate to ≥ 95% via logic optimization, transforming a demo into a commercial prototype.'
@@ -246,7 +246,7 @@ const PROJECTS: Project[] = [
       en: 'Translating dry e-signature tech into a sensory story, resolving cross-media syncing between mobile and L-wall.'
     },
     solution: {
-      zh: '主導「沉浸式腳本」規劃，將簽章轉譯為故故事場景，定義跨媒介即時連動架構。',
+      zh: '主導「沉浸式腳本」規劃，將簽章轉譯為故事場景，定義跨媒介即時連動架構。',
       en: 'Led "Immersive Scripting" to translate signatures into story scenes, defining real-time cross-media syncing.'
     },
     result: {
@@ -305,7 +305,7 @@ const PROJECTS: Project[] = [
         zh: [
           '**品牌價值的可視化**：成功傳達 AI 整合創新的理念，將抽象智慧生活願景轉化為民眾可感知的科技魅力。',
           '**展會人氣引擎**：以強烈視覺震撼成為展場亮點，為展區穩定導入大量人潮，顯著提升曝光量。',
-          '**智慧生活教育**：讓觀眾獲在愉悅氛圍中理解電子簽章對環境永續（無紙化）與遠距協作的重要性。'
+          '**智慧生活教育**：讓觀眾在愉悅氛圍中理解電子簽章對環境永續（無紙化）與遠距協作的重要性。'
         ],
         en: [
           '**Visualizing Brand Value**: Successfully conveyed AI innovation, turning abstract visions into tangible tech charm.',
@@ -454,7 +454,7 @@ const PROJECTS: Project[] = [
         zh: [
           '資訊變動率與破碎化：客戶端素材初期不穩定，傳統設計流程難以應付 16 天內頻繁的圖文改稿需求。',
           '日系品質的嚴苛標竿：日本 B2B 市場對於視覺嚴謹度（如 0.5pt 細線、精準留白）有極高要求。',
-          '多語語系技術難點：中、日、英三種語言字串長度與圖片對應關係極其複雜。'
+          '多語系技術難點：中、日、英三種語言字串長度與圖片對應關係極其複雜。'
         ],
         en: [
           'High information volatility: Unstable initial assets made frequent revisions difficult within a 16-day window.',
@@ -530,7 +530,7 @@ const PROJECTS: Project[] = [
   },
   {
     id: 2,
-    title: { zh: 'Kiosk Horizon（AI導覽大螢幕機）', en: 'Kiosk Horizon Large Screen' },
+    title: { zh: 'Kiosk Horizon（AI 導覽大螢幕機）', en: 'Kiosk Horizon Large Screen' },
     subtitle: {
       zh: '打破大型螢幕的操作斷層',
       en: 'Breaking the interaction gap on large-scale screens'
@@ -675,8 +675,8 @@ export default function App() {
     hero: {
       title: lang === 'zh' ? <>設計 <em>讓人想用</em> 的產品</> : <>Designing Products <em>People Love</em> to Use</>,
       desc: lang === 'zh' 
-        ? "產品設計師，專注於 0→1 產品定義與複雜邏輯轉譯。深耕 SaaS 平台、AI Product builder。用數據和用戶研究解決問題，用設計系統加速迭代。支持遠端協作。"
-        : "Product Designer focused on 0→1 product definition and complex logic translation. Deep expertise in SaaS and AI Product builder. Solving problems through data and user research. Supports remote collaboration.",
+        ? "產品設計師，專注於 0→1 產品定義與複雜邏輯轉譯。深耕 SaaS 平台、AI Product Builder。用數據和用戶研究解決問題，用設計系統加速迭代。支持遠端協作。"
+        : "Product Designer focused on 0→1 product definition and complex logic translation. Deep expertise in SaaS and AI Product Builder. Solving problems through data and user research. Supports remote collaboration.",
     },
     nav: {
       work: lang === 'zh' ? '作品' : 'Work',
@@ -1150,7 +1150,7 @@ export default function App() {
                         {/* Challenges List */}
                         {selectedProject.detailedContent.challenges && (
                           <section className="space-y-3">
-            <p className="text-[0.65rem] font-bold text-[#A68B7C] uppercase tracking-widest">{lang === 'zh' ? '詳細面臨挑戰' : 'The Challenges'}</p>
+            <p className="text-[0.65rem] font-bold text-[#A68B7C] uppercase tracking-widest">{lang === 'zh' ? '面臨的挑戰' : 'The Challenges'}</p>
                             <ul className="space-y-4">
                               {selectedProject.detailedContent.challenges[lang].map((c, i) => (
                                 <li key={i} className="flex gap-4 items-start text-lg text-[#2D3A31]/80 italic">
